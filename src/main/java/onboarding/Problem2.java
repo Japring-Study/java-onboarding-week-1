@@ -5,10 +5,7 @@ import java.util.stream.Collectors;
 
 public class Problem2 {
     public static String solution(String cryptogram) {
-        String answer = "answer";
-
-
-        return answer;
+        return decode(cryptogram);
     }
 
     private static String decode(String cryptogram) {
