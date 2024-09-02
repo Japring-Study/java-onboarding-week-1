@@ -1,11 +1,20 @@
 package onboarding;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Problem6 {
     public static List<String> solution(List<List<String>> forms) {
-        List<String> answer = List.of("answer");
-        return answer;
+        return getSortedList(getDuplicated(forms));
+    }
+
+    private static List<String> getSortedList(Set<String> set) {
+
+        List<String> collect = new ArrayList<>(set);
+
+        Collections.sort(collect);
+
+        return collect;
     }
 
     private static Set<String> getDuplicated(List<List<String>> forms) {
