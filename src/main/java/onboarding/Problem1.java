@@ -11,17 +11,8 @@ class Problem1 {
             return -1;
         }
 
-        int pobiScore;
-        int crongScore;
-
-        try {
-
-            pobiScore = getScore(pobi);
-            crongScore = getScore(crong);
-
-        } catch (RuntimeException e) {
-            return -1;
-        }
+        int pobiScore = getScore(pobi);
+        int crongScore = getScore(crong);
 
         if (pobiScore > crongScore) {
             return 1;
