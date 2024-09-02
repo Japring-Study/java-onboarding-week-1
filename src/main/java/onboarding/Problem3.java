@@ -8,19 +8,22 @@ public class Problem3 {
     private final static List<Integer> special = List.of(3, 6, 9);
 
     public static int solution(int number) {
-        int answer = 0;
-        return answer;
+        return sumClap(countClap(number));
+    }
+
+    private static int sumClap(int[] counts) {
+        return Arrays.stream(counts).sum();
     }
 
     private static int[] countClap(int last) {
 
-        int[] count = new int[last + 1];
+        int[] counts = new int[last + 1];
         for (int num = 1; num <= last; num++) {
 
             int lastDigitCount = special.contains(num % 10) ? 1 : 0;
-            count[num] = count[num/10] + lastDigitCount;
+            counts[num] = counts[num/10] + lastDigitCount;
         }
 
-        return count;
+        return counts;
     }
 }
