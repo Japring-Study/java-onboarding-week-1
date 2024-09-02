@@ -5,4 +5,11 @@ public class Problem4 {
         String answer = "";
         return answer;
     }
+
+    private static char reverseChar(char c) {
+        if (Character.isLowerCase(c)) {
+            return (char) ('a' + 'z' - c);
+        }
+        return (char) ('A' + 'Z' - c);
+    }
 }
