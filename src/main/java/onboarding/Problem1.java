@@ -5,8 +5,25 @@ import java.util.List;
 
 class Problem1 {
     public static int solution(List<Integer> pobi, List<Integer> crong) {
-        int answer = Integer.MAX_VALUE;
-        return answer;
+
+        int pobiScore;
+        int crongScore;
+
+        try {
+
+            pobiScore = getScore(pobi);
+            crongScore = getScore(crong);
+
+        } catch (RuntimeException e) {
+            return -1;
+        }
+
+        if (pobiScore > crongScore) {
+            return 1;
+        } else if (pobiScore < crongScore) {
+            return 2;
+        }
+        return 0;
     }
 
     private static int getScore(List<Integer> pages) {
