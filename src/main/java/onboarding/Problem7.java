@@ -3,9 +3,25 @@ package onboarding;
 import java.util.*;
 
 public class Problem7 {
+
+    private final static int FRIEND_OF_FRIEND_SCORE = 10;
+
     public static List<String> solution(String user, List<List<String>> friends, List<String> visitors) {
         List<String> answer = Collections.emptyList();
         return answer;
+    }
+
+    private static Map<String, Integer> getFriendsScore(String user, Map<String, List<String>> friendsPerUser) {
+        Map<String, Integer> score = new HashMap<>();
+
+        for (String friend: friendsPerUser.getOrDefault(user, new ArrayList<>())) {
+            for (String friendOfFriend : friendsPerUser.getOrDefault(friend, new ArrayList<>())) {
+                if (!friendOfFriend.equals(user)) {
+                    score.put(friendOfFriend, FRIEND_OF_FRIEND_SCORE);
+                }
+            }
+        }
+        return score;
     }
 
     private static Map<String, List<String>> getFriends(List<List<String>> friends) {
