@@ -9,6 +9,13 @@ class Problem1 {
         return answer;
     }
 
+    private static int getScore(List<Integer> pages) {
+        return pages.stream()
+                .map(Problem1::getMaxOfDigitSumAndMultiply)
+                .max(Integer::compareTo)
+                .orElseThrow(() -> new IllegalStateException("동작 오류"));
+    }
+
     private static int getMaxOfDigitSumAndMultiply(int num) {
 
         List<Integer> digits = getDigits(num);
