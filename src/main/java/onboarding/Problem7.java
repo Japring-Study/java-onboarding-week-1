@@ -8,7 +8,23 @@ public class Problem7 {
 
     public static List<String> solution(String user, List<List<String>> friends, List<String> visitors) {
         List<String> answer = Collections.emptyList();
+
+        Map<String, Integer> friendsScore = getFriendsScore(user, getFriends(friends));
+        System.out.println(friendsScore);
+
+        Map<String, Integer> friendsScoreWithVisitors = addVisitorsToScore(visitors, friendsScore);
+        System.out.println(friendsScoreWithVisitors);
+
         return answer;
+    }
+
+    private static Map<String, Integer> addVisitorsToScore(List<String> visitors, Map<String, Integer> friendsScore) {
+        HashMap<String, Integer> friendsScoreWithVisitors = new HashMap<>(friendsScore);
+
+        for (String visitor : visitors) {
+            friendsScoreWithVisitors.put(visitor, friendsScoreWithVisitors.getOrDefault(visitor, 0) + 1);
+        }
+        return friendsScoreWithVisitors;
     }
 
     private static Map<String, Integer> getFriendsScore(String user, Map<String, List<String>> friendsPerUser) {
