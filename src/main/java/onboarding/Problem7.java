@@ -33,7 +33,7 @@ public class Problem7 {
         for (String friend: friendsPerUser.getOrDefault(user, new ArrayList<>())) {
             for (String friendOfFriend : friendsPerUser.getOrDefault(friend, new ArrayList<>())) {
                 if (!friendOfFriend.equals(user)) {
-                    score.put(friendOfFriend, FRIEND_OF_FRIEND_SCORE);
+                    score.put(friendOfFriend, score.getOrDefault(friendOfFriend, 0) + FRIEND_OF_FRIEND_SCORE);
                 }
             }
         }
