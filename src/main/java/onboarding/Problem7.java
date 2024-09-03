@@ -1,21 +1,39 @@
 package onboarding;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static java.util.Map.Entry.comparingByValue;
 
 public class Problem7 {
 
     private final static int FRIEND_OF_FRIEND_SCORE = 10;
 
     public static List<String> solution(String user, List<List<String>> friends, List<String> visitors) {
-        List<String> answer = Collections.emptyList();
 
-        Map<String, Integer> friendsScore = getFriendsScore(user, getFriends(friends));
-        System.out.println(friendsScore);
+        Map<String, List<String>> friendsPerUser = getFriends(friends);
 
+        Map<String, Integer> friendsScore = getFriendsScore(user, friendsPerUser);
         Map<String, Integer> friendsScoreWithVisitors = addVisitorsToScore(visitors, friendsScore);
-        System.out.println(friendsScoreWithVisitors);
 
-        return answer;
+        return getRecommend(friendsScoreWithVisitors, friendsPerUser.getOrDefault(user, new ArrayList<>()));
+    }
+
+    private static List<String> getRecommend(Map<String, Integer> friendsScoreWithVisitors, List<String> userFriends) {
+        return friendsScoreWithVisitors.entrySet().stream()
+                .filter(e -> !userFriends.contains(e.getKey()))
+                .filter(e -> e.getValue() != 0)
+                .sorted(Problem7::compareToScore)
+                .map(Map.Entry::getKey)
+                .limit(5)
+                .collect(Collectors.toList());
+    }
+
+    private static int compareToScore(Map.Entry<String, Integer> e1, Map.Entry<String, Integer> e2) {
+        if (e1.getValue().equals(e2.getValue())) {
+            return e1.getKey().compareTo(e2.getKey());
+        }
+        return e2.getValue() - e1.getValue();
     }
 
     private static Map<String, Integer> addVisitorsToScore(List<String> visitors, Map<String, Integer> friendsScore) {
