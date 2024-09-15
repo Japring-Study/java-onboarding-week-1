@@ -82,6 +82,34 @@ class ApplicationTest {
             String result = "";
             assertThat(Problem2.solution(cryptogram)).isEqualTo(result);
         }
+
+        @Test
+        void case3() {
+            String cyptogram = "bowwwwwww";
+            String result = "bo";
+            assertThat(Problem2.solution(cyptogram)).isEqualTo(result);
+        }
+
+        @Test
+        void case4() {
+            String cyptogram = "brrro";
+            String result = "bo";
+            assertThat(Problem2.solution(cyptogram)).isEqualTo(result);
+        }
+
+        @Test
+        void case5() {
+            String cyptogram = "wwwwwwbrrrowwwwwww";
+            String result = "bo";
+            assertThat(Problem2.solution(cyptogram)).isEqualTo(result);
+        }
+
+        @Test
+        void case6() {
+            String cyptogram = "ABt";
+            String result = "error";
+            assertThat(Problem2.solution(cyptogram)).isEqualTo(result);
+        }
     }
 
     @Nested
