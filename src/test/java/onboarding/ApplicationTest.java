@@ -161,6 +161,12 @@ class ApplicationTest {
             List<Integer> result = List.of(0, 1, 1, 0, 0, 0, 0, 0, 0);
             assertThat(Problem5.solution(money)).isEqualTo(result);
         }
+
+        @Test
+        void case3() {
+            int money = 1000001;
+            assertThat(Problem5.solution(money)).isNull();
+        }
     }
 
     @Nested

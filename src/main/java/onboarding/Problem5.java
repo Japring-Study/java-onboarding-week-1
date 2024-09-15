@@ -6,6 +6,11 @@ import java.util.List;
 
 public class Problem5 {
     public static List<Integer> solution(int money) {
+
+        if(money < 1 || money > 1000000) {
+            return null;
+        }
+
         List<Integer> answer = new ArrayList<>();
         List<Integer> moneyUnit = new ArrayList<>() {{
             add(50000);
