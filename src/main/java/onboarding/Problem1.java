@@ -17,6 +17,9 @@ class Problem1 {
         if(pobi.get(1) <= pobi.get(0) || pobi.get(1) - pobi.get(0) != 1 || crong.get(1) <= crong.get(0) || crong.get(1) - crong.get(0) != 1) {
             return -1;
         }
+        if(pobi.get(0) % 2 != 1 || crong.get(0) % 2 != 1 || pobi.get(1) % 2 != 0 || crong.get(1) % 2 != 0) {
+            return -1;
+        }
 
         int pobiSum = maxSum(pobi);
         int crongSum = maxSum(crong);
