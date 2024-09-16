@@ -1,5 +1,6 @@
 package onboarding;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Problem3 {
@@ -9,10 +10,12 @@ public class Problem3 {
             return -1;
         }
 
+        List<Integer> clapNumbers = Arrays.asList(3, 6, 9);
+
         for(int i = 1; i <= number; i++) {
-            List<Integer> digits = Problem1.splitDigit(i);
-            for(int j = 0; j < digits.size(); j++) {
-                if(digits.get(j) == 3 || digits.get(j) == 6 || digits.get(j) == 9) {
+            List<Integer> digits = Problem1.splitDigits(i);
+            for (Integer digit : digits) {
+                if (clapNumbers.contains(digit)) {
                     answer++;
                 }
             }

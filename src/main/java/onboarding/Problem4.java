@@ -1,6 +1,10 @@
 package onboarding;
 
 public class Problem4 {
+
+    private static final int LOWERCASE_TRANSFORM_BASE = 219;
+    private static final int UPPERCASE_TRANSFORM_BASE = 155;
+
     public static String solution(String word) {
         String answer = "";
 
@@ -17,10 +21,12 @@ public class Problem4 {
             }
 
             char newChar;
-            if(c >= 97) { //소문자
-                newChar = (char) (219 - c);
-            } else { // 대문자
-                newChar = (char) (155 - c);
+            if(c >= 'a' && c <= 'z') { //소문자
+                newChar = (char) (LOWERCASE_TRANSFORM_BASE - c);
+            } else if (c >= 'A' && c <= 'Z') {  // 대문자 변환
+                newChar = (char) (UPPERCASE_TRANSFORM_BASE - c);
+            } else {
+                newChar = c;  // 알파벳이 아닌 경우 그대로 유지
             }
             answer += newChar;
         }
