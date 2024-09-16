@@ -4,69 +4,57 @@ import java.util.*;
 
 public class Problem7 {
 
-    static HashMap<String, Integer> map = new HashMap<>();
     public static List<String> solution(String user, List<List<String>> friends, List<String> visitors) {
-        List<String> answer = new ArrayList<>(5);
+        List<String> recommendedFriends = new ArrayList<>(5);
+        HashMap<String, Integer> friendScores = new HashMap<>();
 
-        List<String> userFriend = friendPoint(user, friends);
-        visitorPoint(visitors, userFriend);
+        List<String> userFriends = calculateFriendPoints(user, friends, friendScores);
+        calculateVisitorPoints(visitors, userFriends, friendScores);
 
-        List<Map.Entry<String, Integer>> entries = new ArrayList<>(map.entrySet());
+        List<Map.Entry<String, Integer>> sortedFriendEntries = new ArrayList<>(friendScores.entrySet());
 
-        entries.sort((entry1, entry2) -> {
-            int valueComp = entry2.getValue().compareTo(entry1.getValue());
-            if(valueComp == 0) {
+        sortedFriendEntries.sort((entry1, entry2) -> {
+            int scoreComparison = entry2.getValue().compareTo(entry1.getValue());
+            if(scoreComparison == 0) {
                 return entry1.getKey().compareTo(entry2.getKey());
             } else {
-                return valueComp;
+                return scoreComparison;
             }
         });
 
-        for(int i = 0; i < Math.min(5, entries.size()); i++) { //리스트의 크기가 5보다 작은 경우, 범위를 리스트 크기에 맞추기 위해 사용
-            answer.add(entries.get(i).getKey());
+        for(int i = 0; i < Math.min(5, sortedFriendEntries.size()); i++) {
+            recommendedFriends.add(sortedFriendEntries.get(i).getKey());
         }
 
-        return answer;
+        return recommendedFriends;
     }
 
-    public static List<String> friendPoint(String user, List<List<String>> friends) {
-        List<String> userFriend = new ArrayList<>();
+    private static List<String> calculateFriendPoints(String user, List<List<String>> friends, HashMap<String, Integer> friendScores) {
+        List<String> userFriends = new ArrayList<>();
 
-        for(int i = 0; i < friends.size(); i++) {
-            if(friends.get(i).contains(user)) {
-                String friendName;
-                if(friends.get(i).get(0) == user) friendName = friends.get(i).get(1);
-                else friendName = friends.get(i).get(0);
-                userFriend.add(friendName);
+        for(List<String> friendPair : friends) {
+            if(friendPair.contains(user)) {
+                String friend = friendPair.get(0).equals(user) ? friendPair.get(1) : friendPair.get(0);
+                userFriends.add(friend);
 
-                for(int j = 0; j < friends.size(); j++) {
-                    if(friends.get(j).contains(friendName) && !friends.get(j).contains(user)) {
-                        String togetherKnownFriend;
-                        if(friends.get(j).get(0) == friendName) togetherKnownFriend = friends.get(j).get(1);
-                        else togetherKnownFriend = friends.get(j).get(0);
-                        if(!map.containsKey(togetherKnownFriend))  {
-                            map.put(togetherKnownFriend, 10);
-                        } else {
-                            int point = map.get(togetherKnownFriend);
-                            map.put(togetherKnownFriend, point + 10);
-                        }
+                for (List<String> mutualFriendPair : friends) {
+                    if (mutualFriendPair.contains(friend) && !mutualFriendPair.contains(user)) {
+                        String mutualFriend = mutualFriendPair.get(0).equals(friend) ? mutualFriendPair.get(1) : mutualFriendPair.get(0);
+
+                        int currentScore = friendScores.getOrDefault(mutualFriend, 0);
+                        friendScores.put(mutualFriend, currentScore + 10);
                     }
                 }
             }
         }
-        return userFriend;
+        return userFriends;
     }
 
-    public static void visitorPoint(List<String> visitors, List<String> userFriend) {
-        for(int i = 0; i < visitors.size(); i++) {
-            String name = visitors.get(i);
-            if(!userFriend.contains(name)) {
-                if (map.containsKey(name)) {
-                    int point = map.get(name);
-                    map.put(name, point + 1);
-                } else {
-                    map.put(name, 1);
-                }
+    private static void calculateVisitorPoints(List<String> visitors, List<String> userFriends, HashMap<String, Integer> friendScores) {
+        for (String visitor : visitors) {
+            if (!userFriends.contains(visitor)) {
+                int currentScore = friendScores.getOrDefault(visitor, 0);
+                friendScores.put(visitor, currentScore + 1);
             }
         }
     }
