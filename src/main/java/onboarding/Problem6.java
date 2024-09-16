@@ -8,9 +8,23 @@ public class Problem6 {
     public static List<String> solution(List<List<String>> forms) {
         List<String> answer = new ArrayList<>();
 
+        if(forms.size() < 1 || forms.size() > 10000) {
+            return null;
+        }
+
         for(int i = 0; i < forms.size(); i++) {
             String name = forms.get(i).get(1);
             String email = forms.get(i).get(0);
+
+            // 이메일 검증: 이메일 형식이 올바르고 email.com 도메인만 허용
+            if (!isValidEmail(email)) {
+                continue;
+            }
+
+            // 닉네임 검증: 닉네임이 한글만 포함
+            if (!isValidNickname(name)) {
+                continue;
+            }
 
             if(answer.contains(email)) continue;
 
@@ -36,5 +50,21 @@ public class Problem6 {
         answer.sort(Comparator.naturalOrder());
 
         return answer;
+    }
+
+    private static boolean isValidEmail(String email) {
+        if(email.length() < 11 || email.length() >= 20) {
+            return false;
+        }
+        String emailPattern = "^[a-zA-Z0-9._%+-]+@email\\.com$";
+        return email.matches(emailPattern);
+    }
+
+    private static boolean isValidNickname(String name) {
+        if (name.length() < 1 || name.length() >= 20) {
+            return false;
+        }
+        String nicknamePattern = "^[가-힣]+$";
+        return name.matches(nicknamePattern);
     }
 }
