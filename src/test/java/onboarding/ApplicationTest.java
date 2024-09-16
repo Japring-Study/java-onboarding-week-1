@@ -33,6 +33,38 @@ class ApplicationTest {
             int result = -1;
             assertThat(Problem1.solution(pobi, crong)).isEqualTo(result);
         }
+
+        @Test
+        void case4() {
+            List<Integer> pobi = List.of(1, 2, 3);
+            List<Integer> crong = List.of(4, 5);
+            int result = -1;
+            assertThat(Problem1.solution(pobi, crong)).isEqualTo(result);
+        }
+
+        @Test
+        void case5() {
+            List<Integer> pobi = List.of(399, 400);
+            List<Integer> crong = List.of(3, 4);
+            int result = -1;
+            assertThat(Problem1.solution(pobi, crong)).isEqualTo(result);
+        }
+
+        @Test
+        void case6() {
+            List<Integer> pobi = List.of(102, 99);
+            List<Integer> crong = List.of(4, 5);
+            int result = -1;
+            assertThat(Problem1.solution(pobi, crong)).isEqualTo(result);
+        }
+
+        @Test
+        void case7() {
+            List<Integer> pobi = List.of(3, 4);
+            List<Integer> crong = List.of(200, 201);
+            int result = -1;
+            assertThat(Problem1.solution(pobi, crong)).isEqualTo(result);
+        }
     }
 
     @Nested
@@ -50,6 +82,34 @@ class ApplicationTest {
             String result = "";
             assertThat(Problem2.solution(cryptogram)).isEqualTo(result);
         }
+
+        @Test
+        void case3() {
+            String cyptogram = "bowwwwwww";
+            String result = "bo";
+            assertThat(Problem2.solution(cyptogram)).isEqualTo(result);
+        }
+
+        @Test
+        void case4() {
+            String cyptogram = "brrro";
+            String result = "bo";
+            assertThat(Problem2.solution(cyptogram)).isEqualTo(result);
+        }
+
+        @Test
+        void case5() {
+            String cyptogram = "wwwwwwbrrrowwwwwww";
+            String result = "bo";
+            assertThat(Problem2.solution(cyptogram)).isEqualTo(result);
+        }
+
+        @Test
+        void case6() {
+            String cyptogram = "ABt";
+            String result = "error";
+            assertThat(Problem2.solution(cyptogram)).isEqualTo(result);
+        }
     }
 
     @Nested
@@ -65,6 +125,13 @@ class ApplicationTest {
         void case2() {
             int number = 33;
             int result = 14;
+            assertThat(Problem3.solution(number)).isEqualTo(result);
+        }
+
+        @Test
+        void case3() {
+            int number = -1;
+            int result = -1;
             assertThat(Problem3.solution(number)).isEqualTo(result);
         }
     }
@@ -93,6 +160,12 @@ class ApplicationTest {
             int money = 15_000;
             List<Integer> result = List.of(0, 1, 1, 0, 0, 0, 0, 0, 0);
             assertThat(Problem5.solution(money)).isEqualTo(result);
+        }
+
+        @Test
+        void case3() {
+            int money = 1000001;
+            assertThat(Problem5.solution(money)).isNull();
         }
     }
 
